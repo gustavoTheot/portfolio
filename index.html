@@ -1,393 +1,453 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gustavo Theotonio | Software Engineer (Pleno)</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='25' fill='%236a6a77'/></svg>" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gustavo Theotonio | Software Engineer Full Stack & Mobile</title>
+    <meta
+        name="description"
+        content="Portfólio de Engenharia de Software de Gustavo Theotonio Silva — Full Stack, Mobile (React Native / BDUI), Arquitetura de Software (C4 / Clean Arch), Cloud (AWS) e IA Aplicada (LLMs & RAG)."
+    />
 
-    <style>
-        /* =========================================
-           Variáveis de Design System & Keyframes
-           ========================================= */
-        :root {
-            --bg-color: #0c111d;
-            --bg-card: rgba(23, 31, 48, 0.7);
-            --text-main: #fcfcfd;
-            --text-muted: #94a3b8;
-            --accent-color: #06b6d4;
-            --accent-hover: #0891b2;
-            --border-color: rgba(56, 189, 248, 0.15);
-            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            --transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-        }
+    <!-- Favicon -->
+    <link
+        rel="icon"
+        type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23090d16' stroke='%2338bdf8' stroke-width='6'/><text x='50' y='66' font-family='monospace' font-size='44' font-weight='bold' fill='%2338bdf8' text-anchor='middle'>GT</text></svg>"
+    />
 
-        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
-        @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        @keyframes typing { from { width: 0 } to { width: 100% } }
-        @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: var(--accent-color); } }
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    />
 
-        /* =========================================
-           Reset e Base
-           ========================================= */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body {
-            font-family: var(--font-main);
-            background-color: var(--bg-color);
-            background-image: 
-                radial-gradient(at 10% 10%, rgba(6, 182, 212, 0.1) 0px, transparent 50%),
-                radial-gradient(at 90% 90%, rgba(29, 78, 216, 0.08) 0px, transparent 50%);
-            color: var(--text-main);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        body::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background-image: radial-gradient(var(--border-color) 1px, transparent 1px);
-            background-size: 30px 30px;
-            opacity: 0.3;
-            z-index: -1;
-        }
-
-        a { text-decoration: none; color: inherit; transition: var(--transition); }
-        .container { max-width: 1050px; margin: 0 auto; padding: 0 2rem; }
-
-        /* =========================================
-           Tipografia
-           ========================================= */
-        h1, h2, h3 { font-weight: 800; line-height: 1.1; margin-bottom: 1rem; letter-spacing: -0.03em; }
-        h2 { font-size: 2.2rem; margin-bottom: 2.5rem; display: flex; align-items: center; gap: 1rem; }
-        h2::after { content: ""; flex: 1; height: 1px; background: var(--border-color); }
-        .highlight { color: var(--accent-color); }
-
-        /* =========================================
-           Header e Navegação
-           ========================================= */
-        header {
-            position: fixed; top: 0; width: 100%;
-            background-color: rgba(12, 17, 29, 0.8);
-            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border-color);
-            z-index: 1000; padding: 1rem 0;
-        }
-        nav { display: flex; justify-content: space-between; align-items: center; max-width: 1050px; margin: 0 auto; padding: 0 2rem; }
-        .logo { font-weight: 800; font-size: 1.3rem; color: var(--text-main); font-family: monospace; }
-        .nav-links { list-style: none; display: flex; gap: 1.5rem; }
-        .nav-links a { color: var(--text-muted); font-size: 0.95rem; font-weight: 500; padding: 0.5rem; border-radius: 6px; }
-        .nav-links a:hover { color: var(--accent-color); background-color: rgba(6, 182, 212, 0.05); }
-
-        /* =========================================
-           Seções Globais & Animações
-           ========================================= */
-        section { padding: 120px 0; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; position: relative; }
-        
-        .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-        .reveal-stagger > * { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease-out, transform 0.5s ease-out; }
-        .reveal-stagger.active > * { opacity: 1; transform: translateY(0); }
-        .reveal-stagger.active > *:nth-child(1) { transition-delay: 0.1s; }
-        .reveal-stagger.active > *:nth-child(2) { transition-delay: 0.15s; }
-        .reveal-stagger.active > *:nth-child(3) { transition-delay: 0.2s; }
-        .reveal-stagger.active > *:nth-child(4) { transition-delay: 0.25s; }
-        .reveal-stagger.active > *:nth-child(5) { transition-delay: 0.3s; }
-        .reveal-stagger.active > *:nth-child(6) { transition-delay: 0.35s; }
-        .reveal-stagger.active > *:nth-child(7) { transition-delay: 0.4s; }
-        .reveal-stagger.active > *:nth-child(8) { transition-delay: 0.45s; }
-
-        /* =========================================
-           Hero Section
-           ========================================= */
-        #hero h1 { font-size: 4rem; margin-bottom: 0.8rem; background: linear-gradient(to right, #fcfcfd, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        
-        .typewriter {
-            font-size: 1.8rem; color: var(--text-muted); font-weight: 400; margin-bottom: 2.5rem;
-            display: inline-block; overflow: hidden; white-space: nowrap;
-            border-right: 3px solid var(--accent-color);
-            animation: typing 2.5s steps(40, end), blink-caret 0.75s step-end infinite;
-        }
-
-        .hero-text { max-width: 650px; font-size: 1.15rem; color: var(--text-muted); margin-bottom: 3rem; }
-        
-        .social-links { display: flex; gap: 1rem; margin-bottom: 3rem; }
-        .social-icon { 
-            width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;
-            border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-card);
-        }
-        .social-icon:hover { border-color: var(--accent-color); transform: translateY(-3px) scale(1.05); box-shadow: 0 5px 15px rgba(6, 182, 212, 0.1); }
-        .social-icon svg { width: 22px; height: 22px; fill: var(--text-muted); transition: var(--transition); }
-        .social-icon:hover svg { fill: var(--accent-color); }
-
-        .btn {
-            display: inline-block; padding: 0.9rem 2rem;
-            background: linear-gradient(135deg, var(--accent-color), #0891b2);
-            background-size: 200% 200%; animation: gradientShift 5s ease infinite;
-            color: #0c111d; font-weight: 700; border-radius: 8px; box-shadow: 0 4px 14px rgba(6, 182, 212, 0.3);
-        }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(6, 182, 212, 0.4); }
-
-        /* =========================================
-           Sobre & Skills
-           ========================================= */
-        .sobre-content { display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; align-items: start; color: var(--text-muted); }
-        
-        .skills-category-title { color: var(--text-main); font-size: 1rem; margin: 1.5rem 0 1rem 0; border-left: 3px solid var(--accent-color); padding-left: 0.8rem; }
-        .skills-category-title:first-child { margin-top: 0; }
-        
-        .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 0.8rem; }
-        
-        .skill-item {
-            background-color: var(--bg-card); border: 1px solid var(--border-color);
-            padding: 0.8rem; border-radius: 10px; text-align: center;
-            transition: var(--transition); position: relative; overflow: hidden;
-        }
-        .skill-item:hover { border-color: var(--accent-color); transform: translateY(-3px); background: rgba(23, 31, 48, 0.9); }
-        
-        .skill-icon-placeholder { font-family: monospace; font-size: 1.1rem; color: var(--accent-color); margin-bottom: 0.3rem; display: block; }
-        .skill-name { color: var(--text-main); font-size: 0.85rem; font-weight: 500; }
-
-        /* =========================================
-           Experiência
-           ========================================= */
-        .timeline { display: grid; gap: 2rem; position: relative; }
-        .timeline::before { content: ""; position: absolute; left: -20px; top: 10px; bottom: 10px; width: 1px; background: var(--border-color); }
-
-        .experience-card {
-            background-color: var(--bg-card); border: 1px solid var(--border-color);
-            border-radius: 16px; padding: 2.5rem; transition: var(--transition);
-            position: relative; backdrop-filter: blur(5px);
-        }
-        .experience-card:hover { border-color: rgba(6, 182, 212, 0.4); transform: scale(1.01) translateX(5px); box-shadow: 0 10px 30px -10px rgba(0,0,0,0.3); }
-        .experience-card::before {
-            content: ""; position: absolute; left: -26px; top: 30px;
-            width: 12px; height: 12px; border-radius: 50%;
-            background: var(--bg-color); border: 2px solid var(--accent-color);
-            transition: var(--transition);
-        }
-
-        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
-        .role-title { font-size: 1.4rem; font-weight: 700; color: var(--text-main); }
-        .company { color: var(--accent-color); }
-        .date-badge { color: var(--text-muted); font-size: 0.9rem; font-family: monospace; border: 1px solid var(--border-color); padding: 0.3rem 0.7rem; border-radius: 20px; }
-
-        .experience-card ul { list-style: none; color: var(--text-muted); font-size: 1rem; }
-        .experience-card li { margin-bottom: 0.8rem; position: relative; padding-left: 1.5rem; }
-        .experience-card li::before { content: "▹"; position: absolute; left: 0; color: var(--accent-color); }
-
-        /* =========================================
-           Contato & Footer
-           ========================================= */
-        #contato { text-align: center; justify-content: center; align-items: center; min-height: 70vh; }
-        .contact-box { max-width: 600px; padding: 4rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; position: relative; }
-        .contact-box:hover { border-color: var(--accent-color); box-shadow: 0 10px 40px -10px rgba(6, 182, 212, 0.15); }
-        
-        .contact-email { font-size: 1.8rem; font-weight: 700; color: var(--text-main); margin: 2rem 0; display: inline-block; position: relative;}
-        .contact-email::after { content: ""; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0; background: var(--accent-color); transition: var(--transition); }
-        .contact-email:hover::after { width: 100%; }
-
-        footer { text-align: center; padding: 3rem; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 0.9rem; background-color: #090e18; }
-        
-        /* =========================================
-           Responsividade
-           ========================================= */
-        @media (max-width: 900px) {
-            #hero h1 { font-size: 3rem; }
-            .typewriter { font-size: 1.4rem; }
-            .sobre-content { grid-template-columns: 1fr; gap: 2rem; }
-            .experience-card { padding: 1.5rem; }
-            .timeline::before { display: none; }
-            .experience-card::before { display: none; }
-        }
-        @media (max-width: 600px) {
-            h2 { font-size: 1.8rem; }
-            .nav-links { display: none; }
-            .contact-box { padding: 2rem; }
-            .contact-email { font-size: 1.3rem; }
-        }
-    </style>
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
 
+    <!-- Background Interactive Neural Network (Active on Empty Spaces) -->
+    <canvas id="neural-canvas" aria-hidden="true"></canvas>
+
+    <!-- ==================== HEADER & NAVIGATION ==================== -->
     <header>
         <nav>
-            <a href="#hero" class="logo">&lt;GT /&gt;</a>
+            <a href="#hero" class="brand">
+                <span class="brand-badge">&lt;GT /&gt;</span>
+                <span>gustavo.theotonio</span>
+            </a>
+
             <ul class="nav-links">
-                <li><a href="#sobre">Sobre</a></li>
-                <li><a href="#experiencia">Experiência</a></li>
-                <li><a href="#contato">Contato</a></li>
+                <li><a href="#projetos" data-i18n="nav_projects">Projetos &amp; Arquitetura</a></li>
+                <li><a href="#experiencia" data-i18n="nav_exp">Experiência</a></li>
+                <li><a href="#stack" data-i18n="nav_stack">Stack &amp; IA</a></li>
+                <li><a href="#formacao" data-i18n="nav_edu">Formação</a></li>
+                <li><a href="#contato" data-i18n="nav_contact">Contato</a></li>
             </ul>
+
+            <div class="nav-actions">
+                <div class="lang-switch" role="group" aria-label="Idioma">
+                    <button class="lang-btn active" id="btn-pt" onclick="setLanguage('pt')">PT-BR</button>
+                    <button class="lang-btn" id="btn-en" onclick="setLanguage('en')">EN</button>
+                </div>
+            </div>
         </nav>
     </header>
 
-    <div class="container">
-        <section id="hero" class="reveal">
-            <p class="highlight" style="font-weight: 500; font-size: 1.1rem;">Olá, meu nome é</p>
-            <h1>Gustavo Theotonio.</h1>
-            <div class="typewriter-container">
-                <span class="typewriter">Engenheiro de Software Full Stack.</span>
-            </div>
-            <p class="hero-text">
-                Com experiência desde 2017 no ciclo completo de desenvolvimento, foco na implementação de soluções robustas, manutenção evolutiva de sistemas e garantia de qualidade de código.
-            </p>
-            
-            <div class="social-links">
-                <a href="https://www.linkedin.com/in/gustavo-silva-theotonio" target="_blank" class="social-icon" title="LinkedIn">
-                    <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                </a>
-                <a href="https://github.com/GustavoTheotonio" target="_blank" class="social-icon" title="GitHub">
-                    <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.374-12-12-12z"/></svg>
-                </a>
-                <a href="mailto:gustavotheotonio46@gmail.com" class="social-icon" title="Email">
-                    <svg viewBox="0 0 24 24"><path d="M12 12.713l-11.985-9.713h23.97l-11.985 9.713zm0 2.574l-12-9.725v15.438h24v-15.438l-12 9.725z"/></svg>
-                </a>
-            </div>
+    <main class="container">
 
-            <div>
-                <a href="#contato" class="btn">Solicitar Currículo PDF</a>
-            </div>
-        </section>
+        <!-- ==================== HERO SECTION ==================== -->
+        <section id="hero">
+            <div class="hero-grid">
 
-        <section id="sobre" class="reveal">
-            <h2>Sobre mim</h2>
-            <div class="sobre-content">
+                <!-- Left Column: Intro & CTAs -->
                 <div>
-                    <p style="margin-bottom: 1.5rem;">
-                        Sou Engenheiro de Software Full Stack (nível Pleno) com formação em Ciência da Computação e Pós-graduação em andamento em Engenharia de Software e IA. Minha trajetória na área tech iniciou em 2017, consolidando uma base sólida no desenvolvimento e evolução de sistemas.
+                    <div class="status-pill">
+                        <span class="status-dot"></span>
+                        <span data-i18n="hero_status">Disponível para desafios como Software Engineer Pleno</span>
+                    </div>
+
+                    <h1 class="hero-title">
+                        Gustavo <span class="gradient-text">Theotonio</span>
+                    </h1>
+
+                    <div class="typing-wrapper">
+                        <span>&gt;</span>
+                        <span id="typewriter-text">Software Engineer Full Stack &amp; Mobile</span>
+                        <span class="cursor-blink"></span>
+                    </div>
+
+                    <p class="hero-bio" data-i18n="hero_bio">
+                        Engenheiro de Software com formação em <strong>Ciência da Computação (UFPB)</strong> e pós-graduação em <strong>Engenharia de Software (Rocketseat)</strong>. Especialista na construção de sistemas complexos ponta a ponta (<strong>Web, Mobile &amp; Cloud</strong>), arquiteturas escaláveis (<strong>C4 Model, BDUI, Microsserviços</strong>) e integração de <strong>IA Generativa (LLMs &amp; RAG)</strong> em produtos reais.
                     </p>
-                    <p>
-                        Minha abordagem foca na aplicação prática e eficiente de padrões de código (SOLID) e metodologias ágeis para garantir a manutenibilidade e a entrega de valor contínua. Tenho experiência ativa na modernização de projetos legados e na implementação de fluxos full-stack, gerenciando desde o banco de dados até as esteiras de deploy.
-                    </p>
+
+                    <div class="cta-group">
+                        <a href="Curriculo_Gustavo_Theotonio_Silva.pdf" download class="btn-primary">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="7 10 12 15 17 10" />
+                                <line x1="12" y1="15" x2="12" y2="3" />
+                            </svg>
+                            <span data-i18n="btn_cv">Baixar Currículo PDF</span>
+                        </a>
+                        <a href="#projetos" class="btn-secondary" data-i18n="btn_projects">
+                            Explorar Arquiteturas &amp; Projetos
+                        </a>
+                    </div>
+
+                    <div class="social-row">
+                        <a href="https://github.com/gustavoTheot" target="_blank" rel="noopener" class="social-btn" title="GitHub (@gustavoTheot)">
+                            <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.374-12-12-12z"/></svg>
+                        </a>
+                        <a href="https://www.linkedin.com/in/gustavo-silva-theotonio/" target="_blank" rel="noopener" class="social-btn" title="LinkedIn">
+                            <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                        </a>
+                        <a href="mailto:gustavotheotonio46@gmail.com" class="social-btn" title="E-mail">
+                            <svg viewBox="0 0 24 24"><path d="M12 12.713l-11.985-9.713h23.97l-11.985 9.713zm0 2.574l-12-9.725v15.438h24v-15.438l-12 9.725z"/></svg>
+                        </a>
+                    </div>
                 </div>
-                
-                <div>
-                    <h3 class="skills-category-title">Desenvolvimento & IA</h3>
-                    <div class="skills-grid reveal-stagger">
-                        <div class="skill-item"><span class="skill-icon-placeholder">{ JS }</span><span class="skill-name">JavaScript</span></div>
-                        <div class="skill-item"><span class="skill-icon-placeholder">&lt;/&gt;</span><span class="skill-name">TypeScript</span></div>
-                        <div class="skill-item"><span class="skill-icon-placeholder">#⚛️</span><span class="skill-name">React</span></div>
-                        <div class="skill-item"><span class="skill-icon-placeholder">#🟢</span><span class="skill-name">Node.js</span></div>
-                        <div class="skill-item"><span class="skill-icon-placeholder">#☕</span><span class="skill-name">Java</span></div>
-                        <div class="skill-item"><span class="skill-icon-placeholder">#🧠</span><span class="skill-name">IA</span></div>
-                    </div>
 
-                    <h3 class="skills-category-title">Infra, Dados & DevOps</h3>
-                    <div class="skills-grid reveal-stagger">
-                        <div class="skill-item"><span class="skill-icon-placeholder">#🐘</span><span class="skill-name">PostgreSQL</span></div>
-                        <div class="skill-item"><span class="skill-icon-placeholder">#🍃</span><span class="skill-name">MongoDB</span></div>
-                        <div class="skill-item"><span class="skill-icon-placeholder">#☁️</span><span class="skill-name">AWS</span></div>
-                        <div class="skill-item"><span class="skill-icon-placeholder">#🌩️</span><span class="skill-name">Cloudflare</span></div>
-                        <div class="skill-item"><span class="skill-icon-placeholder">#🏗️</span><span class="skill-name">Jenkins</span></div>
-                        <div class="skill-item"><span class="skill-icon-placeholder">#🦊</span><span class="skill-name">Git / GitLab</span></div>
+                <!-- Right Column: Neofetch / Engineering Terminal -->
+                <div class="terminal-window">
+                    <div class="terminal-header">
+                        <div class="terminal-dots">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <span class="terminal-title">gustavo@macbook-pro: ~/engineering-profile</span>
                     </div>
+                    <div class="terminal-body">
+                        <div class="cmd-line">
+                            <span class="cmd-prompt">➜</span> <span class="cmd-bin">neofetch</span> --arch-profile
+                        </div>
+                        <div class="neofetch-row">
+                            <span class="neo-key">Role:</span>
+                            <span class="neo-val">Full Stack &amp; Mobile Engineer (Pleno)</span>
+                        </div>
+                        <div class="neofetch-row">
+                            <span class="neo-key">Education:</span>
+                            <span class="neo-val">B.Sc. CS @ UFPB | Postgrad @ Rocketseat</span>
+                        </div>
+                        <div class="neofetch-row">
+                            <span class="neo-key">Architecture:</span>
+                            <span class="neo-val">C4 Model, Clean Arch, DDD, BDUI</span>
+                        </div>
+                        <div class="neofetch-row">
+                            <span class="neo-key">Languages[0]:</span>
+                            <span class="neo-val">TypeScript, JavaScript, Python, Java</span>
+                        </div>
+                        <div class="neofetch-row">
+                            <span class="neo-key">Backend:</span>
+                            <span class="neo-val">Node.js (NestJS, Fastify, Express), Spring</span>
+                        </div>
+                        <div class="neofetch-row">
+                            <span class="neo-key">Frontend_Mob:</span>
+                            <span class="neo-val">React, Next.js, React Native, Micro-FE</span>
+                        </div>
+                        <div class="neofetch-row">
+                            <span class="neo-key">Applied_AI:</span>
+                            <span class="neo-val">
+                                <span class="neo-tag">LLMs</span>
+                                <span class="neo-tag">RAG</span>
+                                <span class="neo-tag">pgvector</span>
+                                <span class="neo-tag">ChromaDB</span>
+                            </span>
+                        </div>
+                        <div class="neofetch-row">
+                            <span class="neo-key">Cloud_Infra:</span>
+                            <span class="neo-val">AWS (EC2, Lambda, S3), Docker, MinIO, CI/CD</span>
+                        </div>
+                    </div>
+                </div>
 
-                    <h3 class="skills-category-title">Gestão & Agilidade</h3>
-                    <div class="skills-grid reveal-stagger">
-                        <div class="skill-item"><span class="skill-icon-placeholder">#📊</span><span class="skill-name">Gestão de Proj.</span></div>
-                        <div class="skill-item"><span class="skill-icon-placeholder">#🎫</span><span class="skill-name">Jira</span></div>
-                        <div class="skill-item"><span class="skill-icon-placeholder">#🔄</span><span class="skill-name">Scrum</span></div>
-                        <div class="skill-item"><span class="skill-icon-placeholder">#📋</span><span class="skill-name">Kanban</span></div>
-                        <div class="skill-item"><span class="skill-icon-placeholder">#💡</span><span class="skill-name">Lean Inception</span></div>
+            </div>
+        </section>
+
+        <!-- ==================== HIGH-IMPACT METRICS BAR ==================== -->
+        <div class="metrics-bar reveal">
+            <div class="metric-card">
+                <div class="metric-value">3+ Anos</div>
+                <div class="metric-label" data-i18n="m1_label">Atuação prática construindo sistemas Web, Mobile e Cloud em produção</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">BDUI</div>
+                <div class="metric-label" data-i18n="m2_label">Redução do Time-to-Market mobile/web de dias para minutos sem fila de loja</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">LLMs &amp; RAG</div>
+                <div class="metric-label" data-i18n="m3_label">Busca semântica vetorial (pgvector / ChromaDB) integrada a produtos reais</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">End-to-End</div>
+                <div class="metric-label" data-i18n="m4_label">Da modelagem C4 Model e banco de dados ao deploy na App Store, Play Store e AWS</div>
+            </div>
+        </div>
+
+        <!-- ==================== 01. FEATURED PROJECTS ==================== -->
+        <section id="projetos" class="reveal">
+            <div class="section-header">
+                <span class="section-eyebrow">01 // Engineering Showcase</span>
+                <h2 class="section-title" data-i18n="sec_projects">Projetos &amp; Arquiteturas em Destaque</h2>
+            </div>
+
+            <div class="bento-grid">
+                <article class="project-card">
+                    <div>
+                        <div class="project-top">
+                            <span class="project-badge">Applied AI &amp; Vector Search</span>
+                            <a href="https://github.com/gustavoTheot" target="_blank" rel="noopener" title="Ver no GitHub">↗</a>
+                        </div>
+                        <h3 class="project-title" data-i18n="p1_title">Motor de Busca Semântica &amp; RAG</h3>
+                        <p class="project-desc" data-i18n="p1_desc">
+                            Arquitetura completa integrando LLMs com técnicas avançadas de Embeddings e Vector Search para indexação inteligente e recuperação estruturada de informações (RAG) com baixa latência.
+                        </p>
+                    </div>
+                    <div class="tag-list">
+                        <span class="tech-tag">LLMs</span>
+                        <span class="tech-tag">RAG</span>
+                        <span class="tech-tag">PostgreSQL (pgvector)</span>
+                        <span class="tech-tag">ChromaDB</span>
+                        <span class="tech-tag">Python / Node.js</span>
+                    </div>
+                </article>
+
+                <article class="project-card">
+                    <div>
+                        <div class="project-top">
+                            <span class="project-badge">Micro-SaaS &amp; Media Pipeline</span>
+                            <a href="https://github.com/gustavoTheot" target="_blank" rel="noopener" title="Ver no GitHub">↗</a>
+                        </div>
+                        <h3 class="project-title" data-i18n="p2_title">Cuts — Processamento Automatizado de Vídeo</h3>
+                        <p class="project-desc" data-i18n="p2_desc">
+                            Plataforma Micro-SaaS para geração automatizada de clipes curtos para redes sociais, gerenciando filas assíncronas de mídia de alta performance e autenticação/publicação via OAuth 2.0.
+                        </p>
+                    </div>
+                    <div class="tag-list">
+                        <span class="tech-tag">TypeScript</span>
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">OAuth 2.0 (Google &amp; TikTok)</span>
+                        <span class="tech-tag">Docker</span>
+                    </div>
+                </article>
+
+                <article class="project-card">
+                    <div>
+                        <div class="project-top">
+                            <span class="project-badge">Fintech &amp; Valuation Engine</span>
+                            <a href="https://github.com/gustavoTheot" target="_blank" rel="noopener" title="Ver no GitHub">↗</a>
+                        </div>
+                        <h3 class="project-title" data-i18n="p3_title">Plataforma de Organização Financeira &amp; Open Finance</h3>
+                        <p class="project-desc" data-i18n="p3_desc">
+                            Aplicação Full Stack robusta focada em controle de fluxo de caixa e alocação estruturada de ativos do mercado financeiro, implementando modelos matemáticos automatizados de valuation.
+                        </p>
+                    </div>
+                    <div class="tag-list">
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">TypeScript</span>
+                        <span class="tech-tag">React / Next.js</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                        <span class="tech-tag">Clean Architecture</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- ==================== 02. PROFESSIONAL EXPERIENCE ==================== -->
+        <section id="experiencia" class="reveal">
+            <div class="section-header">
+                <span class="section-eyebrow">02 // Career Track</span>
+                <h2 class="section-title" data-i18n="sec_exp">Experiência Profissional</h2>
+            </div>
+
+            <div class="timeline">
+                <!-- NEFEX -->
+                <div class="exp-card">
+                    <div class="exp-header">
+                        <div>
+                            <div class="exp-role" data-i18n="nefex_role">Engenheiro de Software Full Stack &amp; Mobile</div>
+                            <div class="exp-company">Nefex</div>
+                        </div>
+                        <span class="exp-date" data-i18n="nefex_date">Fev 2024 – Atualmente</span>
+                    </div>
+                    <ul class="exp-bullets">
+                        <li data-i18n="nefex_b1"><strong>Backend-Driven UI (BDUI) &amp; Time-to-Market:</strong> Liderou a transição para arquitetura BDUI (estratégia White-label), unificando a renderização entre Web e Mobile e permitindo atualizações dinâmicas de interface em produção sem depender da fila de revisão das lojas.</li>
+                        <li data-i18n="nefex_b2"><strong>Expansão Mobile (App Store &amp; Play Console):</strong> Conduziu do zero ao deploy oficial um aplicativo multiplataforma em <strong>React Native</strong> voltado à segurança digital infantil, integrando fluxos de pagamento nativos.</li>
+                        <li data-i18n="nefex_b3"><strong>Engenharia de Performance &amp; IA:</strong> Reduziu drasticamente o tempo de build migrando para <strong>Rsbuild</strong>, projetou módulos em <strong>Micro-frontends</strong> e integrou soluções de <strong>IA (LLMs e fluxos RAG)</strong> diretamente nos produtos.</li>
+                        <li data-i18n="nefex_b4"><strong>Cloud, DevOps &amp; Dados:</strong> Orquestração de infraestrutura <strong>AWS</strong> com pipelines de <strong>CI/CD</strong> e modelagem de bancos de dados relacionais para regras de negócio complexas.</li>
+                    </ul>
+                    <div class="tag-list">
+                        <span class="tech-tag">React Native</span>
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">TypeScript</span>
+                        <span class="tech-tag">BDUI</span>
+                        <span class="tech-tag">LLMs &amp; RAG</span>
+                        <span class="tech-tag">Rsbuild</span>
+                        <span class="tech-tag">AWS</span>
+                    </div>
+                </div>
+
+                <!-- VIVA MOVEIS -->
+                <div class="exp-card">
+                    <div class="exp-header">
+                        <div>
+                            <div class="exp-role" data-i18n="viva_role">Engenheiro de Software Full Stack</div>
+                            <div class="exp-company">Viva Móveis (P&amp;D AYTY / UFPB)</div>
+                        </div>
+                        <span class="exp-date">Mar 2024 – Nov 2025</span>
+                    </div>
+                    <ul class="exp-bullets">
+                        <li data-i18n="viva_b1"><strong>Arquitetura Greenfield &amp; C4 Model:</strong> Concebeu e desenvolveu do zero uma plataforma centralizadora de vendas e atendimento, modelando toda a fundação com <strong>C4 Model</strong> e garantindo escalabilidade.</li>
+                        <li data-i18n="viva_b2"><strong>Segurança Granular (ABAC &amp; RBAC):</strong> Projetou e implementou controles de acesso granulares combinando ABAC e RBAC para proteção de dados comerciais sensíveis.</li>
+                        <li data-i18n="viva_b3"><strong>Object Storage &amp; Gateway Financeiro:</strong> Criou infraestrutura de alta performance com <strong>MinIO</strong> para gestão de arquivos pesados de projetos e desenvolveu integrações de pagamentos automatizados via <strong>Asaas</strong> com <strong>Docker e AWS</strong>.</li>
+                    </ul>
+                    <div class="tag-list">
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">TypeScript</span>
+                        <span class="tech-tag">C4 Model</span>
+                        <span class="tech-tag">ABAC / RBAC</span>
+                        <span class="tech-tag">MinIO</span>
+                        <span class="tech-tag">Asaas Gateway</span>
+                        <span class="tech-tag">Docker</span>
+                    </div>
+                </div>
+
+                <!-- ESIG -->
+                <div class="exp-card">
+                    <div class="exp-header">
+                        <div>
+                            <div class="exp-role" data-i18n="esig_role">Engenheiro de Software Full Stack (Sustentação &amp; Evolução)</div>
+                            <div class="exp-company">ESIG Software (P&amp;D AYTY / UFPB)</div>
+                        </div>
+                        <span class="exp-date">Jul 2023 – Mar 2024</span>
+                    </div>
+                    <ul class="exp-bullets">
+                        <li data-i18n="esig_b1"><strong>Alta Disponibilidade em Escala:</strong> Manutenção evolutiva e resolução de incidentes críticos no <strong>SIGEduc</strong>, garantindo estabilidade para milhares de usuários simultâneos.</li>
+                        <li data-i18n="esig_b2"><strong>Redução de Débitos Técnicos:</strong> Refatoração de módulos legados (<strong>Java / JSF</strong> e SQL) e desenvolvimento ponta a ponta de funcionalidades para digitalizar processos de Diário de Classe e Matrícula.</li>
+                    </ul>
+                    <div class="tag-list">
+                        <span class="tech-tag">Java</span>
+                        <span class="tech-tag">JSF</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                        <span class="tech-tag">High Availability</span>
+                        <span class="tech-tag">Refactoring</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="experiencia">
-            <h2 class="reveal">Trajetória Profissional</h2>
-            <div class="timeline reveal-stagger">
-                
-                <div class="experience-card">
-                    <div class="card-header">
-                        <div>
-                            <span class="role-title">Frontend Web Developer</span><br>
-                            <span class="company">Nefex</span>
-                        </div>
-                        <span class="date-badge">Fev 2025 – Presente</span>
-                    </div>
-                    <ul>
-                        <li>Implementação de funcionalidades e melhorias na arquitetura front-end baseada em <strong>Micro-frontends</strong>.</li>
-                        <li>Execução do upgrade crítico da aplicação React para versões mais recentes, garantindo estabilidade e performance.</li>
-                        <li>Utilização de TypeScript e Vite para otimização do ambiente de desenvolvimento.</li>
-                    </ul>
+        <!-- ==================== 03. SKILLS & TOOLBOX ==================== -->
+        <section id="stack" class="reveal">
+            <div class="section-header">
+                <span class="section-eyebrow">03 // Tech Arsenal</span>
+                <h2 class="section-title" data-i18n="sec_stack">Habilidades &amp; Ferramentas</h2>
+            </div>
+
+            <div class="toolbox-grid">
+                <div class="toolbox-card">
+                    <div class="toolbox-title"><span>//</span> Back-end, Front-end &amp; Mobile</div>
+                    <img
+                        class="skill-icons-img"
+                        src="https://skillicons.dev/icons?i=ts,js,nodejs,nestjs,express,fastapi,python,java,spring,react,nextjs,tailwind,styledcomponents&perline=7"
+                        alt="Core Stack Icons"
+                    />
                 </div>
 
-                <div class="experience-card">
-                    <div class="card-header">
-                        <div>
-                            <span class="role-title">Desenvolvedor Full Stack</span><br>
-                            <span class="company">VivaMoveis</span>
-                        </div>
-                        <span class="date-badge">Mar 2024 – Nov 2025</span>
-                    </div>
-                    <ul>
-                        <li>Desenvolvimento full-stack de aplicação web para gestão de briefing e vendas.</li>
-                        <li>Implementação de controle de acesso granular (ABAC/RBAC) no back-end (Node.js) e front-end.</li>
-                        <li>Integração de gateways de pagamento (Asaas) e serviços de armazenamento de arquivos.</li>
-                        <li>Documentação da arquitetura do sistema utilizando o C4 Model.</li>
-                    </ul>
+                <div class="toolbox-card">
+                    <div class="toolbox-title"><span>//</span> Cloud, DevOps, Dados &amp; Testes</div>
+                    <img
+                        class="skill-icons-img"
+                        src="https://skillicons.dev/icons?i=aws,docker,gitlab,githubactions,jenkins,cloudflare,linux,postgres,mongodb,redis,prisma,jest,cypress&perline=7"
+                        alt="Infra Stack Icons"
+                    />
                 </div>
 
-                <div class="experience-card">
-                    <div class="card-header">
-                        <div>
-                            <span class="role-title">Desenvolvedor Full Stack</span><br>
-                            <span class="company">ESIG Group</span>
-                        </div>
-                        <span class="date-badge">Jul 2023 – Mar 2024</span>
+                <div class="toolbox-card full-width">
+                    <div class="toolbox-title">
+                        <span>//</span>
+                        <span data-i18n="arch_box_title">Engenharia de Software, Arquitetura &amp; Inteligência Artificial</span>
                     </div>
-                    <ul>
-                        <li>Atuação na manutenção evolutiva e refatoração do SIGEduc (Gestão Escolar).</li>
-                        <li>Desenvolvimento de módulos de ponta a ponta utilizando Java e banco de dados relacional.</li>
-                        <li>Foco na melhoria de performance de consultas e estabilidade da aplicação.</li>
-                    </ul>
+                    <div class="arch-pills">
+                        <span class="arch-pill">React Native (iOS &amp; Android)</span>
+                        <span class="arch-pill">Backend-Driven UI (BDUI)</span>
+                        <span class="arch-pill">Micro-frontends &amp; Rsbuild</span>
+                        <span class="arch-pill">LLMs &amp; Prompt Engineering</span>
+                        <span class="arch-pill">RAG (Retrieval-Augmented Generation)</span>
+                        <span class="arch-pill">Vector Search (pgvector / ChromaDB)</span>
+                        <span class="arch-pill">C4 Model &amp; Clean Architecture</span>
+                        <span class="arch-pill">Domain-Driven Design (DDD)</span>
+                        <span class="arch-pill">SOLID &amp; TDD</span>
+                        <span class="arch-pill">Controle de Acesso (ABAC / RBAC)</span>
+                        <span class="arch-pill">MinIO Object Storage</span>
+                        <span class="arch-pill">OAuth 2.0 &amp; Webhooks</span>
+                    </div>
                 </div>
-
             </div>
         </section>
 
+        <!-- ==================== 04. ACADEMIC EDUCATION ==================== -->
+        <section id="formacao" class="reveal">
+            <div class="section-header">
+                <span class="section-eyebrow">04 // Academic Foundation</span>
+                <h2 class="section-title" data-i18n="sec_edu">Formação Acadêmica</h2>
+            </div>
+
+            <div class="edu-grid">
+                <div class="edu-card">
+                    <span class="edu-period">2025 – 2026</span>
+                    <div class="edu-degree" data-i18n="edu1_deg">Pós-graduação Lato Sensu em Tech Developer</div>
+                    <div class="edu-school">Faculdade de Tecnologia Rocketseat</div>
+                </div>
+                <div class="edu-card">
+                    <span class="edu-period">2021 – 2025</span>
+                    <div class="edu-degree" data-i18n="edu2_deg">Bacharelado em Ciência da Computação</div>
+                    <div class="edu-school">Universidade Federal da Paraíba (UFPB)</div>
+                </div>
+                <div class="edu-card">
+                    <span class="edu-period">2017 – 2020</span>
+                    <div class="edu-degree" data-i18n="edu3_deg">Técnico em Informática</div>
+                    <div class="edu-school">Instituto Federal da Paraíba (IFPB)</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== 05. CONTACT SECTION ==================== -->
         <section id="contato" class="reveal">
-            <div class="contact-box">
-                <p class="highlight">O que vem a seguir?</p>
-                <h2>Vamos conversar</h2>
-                <p style="color: var(--text-muted);">
-                    Estou em busca de novas oportunidades como Engenheiro de Software Pleno. Se você procura alguém focado em execução de qualidade, evolução de sistemas e entregas ágeis, entre em contato.
+            <div class="contact-card">
+                <span class="section-eyebrow">05 // What's Next?</span>
+                <h2 data-i18n="contact_title">Vamos construir algo escalável juntos?</h2>
+                <p data-i18n="contact_desc">
+                    Estou aberto a oportunidades como Engenheiro de Software Pleno (Full Stack, Back-end ou Mobile) em times que valorizam excelência técnica, arquitetura limpa e impacto direto no produto.
                 </p>
-                <a href="mailto:gustavotheotonio46@gmail.com" class="contact-email">gustavotheotonio46@gmail.com</a>
-                <div style="margin-top: 2rem;">
-                    <a href="mailto:gustavotheotonio46@gmail.com" class="btn">Enviar Mensagem</a>
+                <div class="cta-group cta-group--centered">
+                    <a href="mailto:gustavotheotonio46@gmail.com" class="btn-primary">
+                        <span>gustavotheotonio46@gmail.com</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/gustavo-silva-theotonio/" target="_blank" rel="noopener" class="btn-secondary">
+                        <span>Conectar no LinkedIn</span>
+                    </a>
                 </div>
             </div>
         </section>
-    </div>
 
+    </main>
+
+    <!-- ==================== FOOTER ==================== -->
     <footer>
-        <p>Gustavo Theotonio &copy; 2026. Todos os direitos reservados.</p>
-        <p style="font-size: 0.8rem; margin-top: 0.5rem; opacity: 0.5;">Desenvolvido com foco em autenticidade e performance.</p>
+        <div class="container">
+            <p>Gustavo Theotonio Silva &copy; 2026 — Software Engineer Full Stack &amp; Mobile</p>
+        </div>
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const observerOptions = {
-                threshold: 0.15,
-                rootMargin: "0px 0px -50px 0px"
-            };
-
-            const revealOnScroll = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                    }
-                });
-            }, observerOptions);
-
-            const reveals = document.querySelectorAll('.reveal, .reveal-stagger');
-            reveals.forEach(el => revealOnScroll.observe(el));
-        });
-    </script>
+    <!-- Application Scripts (Modularized) -->
+    <script src="js/i18n.js"></script>
+    <script src="js/neural-canvas.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
